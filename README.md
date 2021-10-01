@@ -18,4 +18,16 @@
 
 ## Documentación endpoint
 
-Agregue aquí al documentación del endpoint elaborado.
+El enpoint `api/:input`, recibe como parametro un numero que representa la suma de la altura de dos jugadores que se quiere buscar. 
+* Ejemplo: "http://localhost:3000/api/139"
+* Respuesta: retorna un arreglo de arreglos con los nombres de los jugadores que cumplen con la condicion 
+   `[
+  [
+    "Brevin Knight",
+    "Nate Robinson"
+  ],
+  [
+    "Nate Robinson",
+    "Mike Wilks"
+  ]
+]`
