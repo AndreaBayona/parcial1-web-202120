@@ -7,8 +7,18 @@ const message = document.getElementById('message');
 
 enterButton.addEventListener('click', (event) => {
   //Implementar lógica del button submit
-  alert('Implementar lógica del button submit');
-  getresults(123);
+  removeAllChildNodes(tbody);
+  removeAllChildNodes(message);
+  if (input.value !== "") {
+    getresults(input.value).then((res) => {
+
+      if (res.length > 0) {
+        renderTable(res);
+      } else {
+        message.append("No matches found");
+      }
+    });
+  }
   event.preventDefault();
 });
 
@@ -17,10 +27,28 @@ enterButton.addEventListener('click', (event) => {
  * @param {*} heightRef
  */
 async function getresults(heightRef) {
-  const resp = await fetch(`api?input=${heightRef}`);
+  const resp = await fetch(`api/${heightRef}`);
   const data = await resp.json();
   console.log('data from back', data);
-  //printValues(data);
+  return data;
+
+}
+
+const renderTable = (data) => {
+
+  data.forEach((dataRow, index) => {
+    let row = document.createElement("tr");
+    let cell = document.createElement("td");
+    let cell2 = document.createElement("td");
+    let cell3 = document.createElement("td");
+    cell.append(`${index}`);
+    row.append(cell);
+    cell2.append(`${dataRow[0]}`);
+    row.append(cell2);
+    cell3.append(`${dataRow[1]}`);
+    row.append(cell3);
+    tbody.append(row);
+  })
 }
 
 function removeAllChildNodes(parent) {
